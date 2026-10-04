@@ -1,0 +1,30 @@
+[project]
+name = "llm_memory"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Flavio Venturini", email = "flavio185@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.142.2",
+    "pydantic>=2.13.5",
+    "qdrant-client>=1.19.1",
+    "sentence-transformers>=6.1.0",
+]
+
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "ruff>=0.16.10",
+    "pre-commit>=4.6.2",
+]
+
+[tool.fastapi]
+entrypoint = "llm_memory.api:app"
