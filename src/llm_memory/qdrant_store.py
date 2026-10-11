@@ -1,10 +1,13 @@
 # Qdrant helper
 import uuid
 
+from opentelemetry.instrumentation.qdrant import QdrantInstrumentor
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, PointIdsList, PointStruct, VectorParams
 
 from llm_memory.models import Memory
+
+QdrantInstrumentor().instrument()
 
 
 class QdrantStore:
@@ -12,7 +15,7 @@ class QdrantStore:
         self, db_url: str = "http://localhost:42983", collection: str = "memories"
     ):
         self.collection = collection
-        self.client = QdrantClient(url=db_url)
+        self.client = QdrantClient(url=db_url, check_compatibility=False)
         if not self.client.collection_exists(collection):
             self.client.create_collection(
                 collection,
